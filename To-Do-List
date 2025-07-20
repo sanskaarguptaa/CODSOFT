@@ -1,0 +1,89 @@
+#include <iostream>
+#include <vector>
+#include <string>
+
+using namespace std;
+
+struct Task {
+    string description;
+    bool is_done;
+};
+
+vector<Task> task_list;
+
+// function
+void showMenu() {
+    cout << "\n--- MENU ---\n";
+    cout << "1. Add a New Task\n";
+    cout << "2. View All Tasks\n";
+    cout << "3. Mark Task as Done\n";
+    cout << "4. Delete a Task\n";
+    cout << "5. Exit To Do!\n";
+    cout << "-------------\n";
+    cout << "Enter choice: ";
+}
+
+int main() {
+    int choice;
+
+    while (true) {
+        showMenu();
+        cin >> choice;
+
+        if (choice == 1) {
+            // Add a new task
+            cout << "Enter a new task: ";
+            string new_task_desc;
+            cin.ignore();
+            getline(cin, new_task_desc);
+
+            Task t;
+            t.description = new_task_desc;
+            t.is_done = false;
+            task_list.push_back(t);
+            cout << "Task added!\n";
+
+        } else if (choice == 2) {
+            // View all the tasks
+            cout << "\n--- My To-Do List ---\n";
+            if (task_list.size() == 0) {
+                cout << "Nothinng To Do!\n";
+            } else {
+                for (int i = 0; i < task_list.size(); i++) {
+                    char status = task_list[i].is_done ? 'x' : ' ';
+                    cout << i + 1 << ". [" << status << "] " << task_list[i].description << endl;
+                }
+            }
+        } else if (choice == 3) {
+            // Mark a task as done
+            cout << "Enter task number to mark as done: ";
+            int task_num;
+            cin >> task_num;
+
+            if (task_num > 0 && task_num <= task_list.size()) {
+                task_list[task_num - 1].is_done = true;
+                cout << "Task marked as done." << endl;
+            } else {
+                cout << "Invalid task number." << endl;
+            }
+        } else if (choice == 4) {
+            // Delete a task
+            cout << "Enter task number to delete: ";
+            int task_num;
+            cin >> task_num;
+            if (task_num > 0 && task_num <= task_list.size()) {
+                task_list.erase(task_list.begin() + task_num - 1);
+                cout << "Task deleted." << endl;
+            } else {
+                cout << "Invalid task number." << endl;
+            }
+        } else if (choice == 5) {
+            cout << "Bye bye!\n";
+            break; // exits the while loop
+        } else {
+            cout << "That's not a valid choice, try again.\n";
+        }
+    }
+
+    return 0;
+}
