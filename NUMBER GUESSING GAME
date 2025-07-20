@@ -1,0 +1,34 @@
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+
+using namespace std;
+
+int main() {
+    srand(time(0));
+    int num = rand() % 100 + 1; 
+    int guess;
+    int tries = 0;
+
+    cout << "Guess the number (1-100)\n";
+
+    // A simple infinite loop that we break out of when the user wins
+    while (true) {
+        cout << "Your guess: ";
+        cin >> guess;
+
+        tries++; 
+
+        if (guess > num) {
+            cout << "Too high.\n";
+        } else if (guess < num) {
+            cout << "Too low.\n";
+        } else {
+            cout << "\nYou got it!\n";
+            cout << "It took you " << tries << " tries.\n";
+            break; 
+        }
+    }
+
+    return 0;
+}
